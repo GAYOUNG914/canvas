@@ -7,6 +7,8 @@ const modeBtn = document.getElementById("mode-btn");
 const destroyBtn = document.getElementById("destroy-btn");
 const erasorBtn = document.getElementById("erase-btn");
 const fileInput = document.getElementById("file");
+const textInput = document.getElementById("text");
+const saveBtn = document.getElementById("save");
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800;
@@ -15,6 +17,7 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 
 const colors = [
     "#FFC312",
@@ -95,9 +98,36 @@ function onErasorClick(){
 function onFileChange(e){
     const file = e.target.files[0];
     const url = URL.createObjectURL(file); //브라우저를 위한 url 추출
-    console.log(url);
+    const image = new Image();
+    image.src = url; //이미지 태그의 src 속성에 생성된 Url을 할당
+    image.onload = function(){
+        ctx.drawImage(image,0,0,CANVAS_WIDTH,CANVAS_HEIGHT);//drawImage API는 이미지태그를 필요로 함, 뒤 숫자는 좌표, 사이즈임
+        // fileInput.value = null;ㄴ
+    }
 }
 
+function onDoubleClick(e){
+    const text = textInput.value;
+    if(text !== ""){
+        ctx.save(); //현재상태저장
+        ctx.lineWidth = 1;
+        ctx.font = "48px serif";
+        // ctx.strokeText(text, e.offsetX, e.offsetY);
+        ctx.fillText(text, e.offsetX, e.offsetY);
+        ctx.restore(); //우와 개쩐다, save API, restore API로 이전상태로 되돌릴 수 있음
+    }
+
+}
+
+function onSaveClick(){
+    const url = canvas.toDataURL(); //캔버스의 데이터 가져오기
+    const a = document.createElement("a"); //fake a링크 만들기
+    a.href = url;
+    a.download = "myDrawing.png" //a 의 download 속성 이용
+    a.click();// 페이크 a 링크를 클릭
+}
+
+canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("mousemove",onMove);
 canvas.addEventListener("mousedown",startPainting);
 canvas.addEventListener("mouseup",cancelPainting);
@@ -112,3 +142,4 @@ modeBtn.addEventListener("click",onModeClick);
 destroyBtn.addEventListener("click",onDestroyClick);
 erasorBtn.addEventListener("click",onErasorClick);
 fileInput.addEventListener("change",onFileChange);
+saveBtn.addEventListener("click",onSaveClick);
