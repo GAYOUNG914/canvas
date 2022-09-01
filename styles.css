@@ -1,3 +1,5 @@
+@import "reset.css";
+
 canvas{
     width: 800px; height: 800px; border: 5px solid black;
 
@@ -7,9 +9,75 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: wheat; */
+}
+
+button{
+    all:unset;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    opacity: 0.8;
+}
+
+canvas{
+    margin: 0 50px 0 50px;
+}
+
+.color-options{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.color-option:hover{
+    transform: scale(1.2);
 }
 
 .color-option{
     width: 50px; height: 50px;
     cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 100%;
+    border: 5px solid white;
+    transition: 0.3s;
+}
+
+.color-option:last-child{
+    margin-bottom: 0;
+}
+
+.pallette{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.pallette button{
+    display: block;
+    padding: 10px 20px 10px 20px;
+    background: grey;
+    color: white;
+    border-radius: 20px;
+    border: 5px solid white;
+    
+}
+
+input{cursor: pointer;}
+label{cursor: pointer;}
+
+input#file{
+    display: none;
+}
+
+label[for="file"]{
+    background: white;
+    padding: 10px;
+    border-radius: 20px;
+    border: 5px solid grey;
 }

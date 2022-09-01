@@ -143,3 +143,5 @@ destroyBtn.addEventListener("click",onDestroyClick);
 erasorBtn.addEventListener("click",onErasorClick);
 fileInput.addEventListener("change",onFileChange);
 saveBtn.addEventListener("click",onSaveClick);
+
+//challenge - 폰트&사이즈 바꾸기, 폰트 fill&stroke
